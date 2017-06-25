@@ -17,7 +17,7 @@ abstract class AbstractExpression
      * @param InterpreterContext $context
      * @return mixed
      */
-    abstract function interpret(InterpreterContext $context);
+    abstract public function interpret(InterpreterContext $context);
 
     /**
      * @return int
