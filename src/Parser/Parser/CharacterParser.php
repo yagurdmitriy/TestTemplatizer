@@ -18,7 +18,7 @@ class CharacterParser extends AbstractParser
      * @param string $name
      * @param array  $options
      */
-    public function __construct($char, $name, $options = null)
+    public function __construct($char, $name = null, $options = null)
     {
         parent::__construct($name, $options);
         $this->char = $char;

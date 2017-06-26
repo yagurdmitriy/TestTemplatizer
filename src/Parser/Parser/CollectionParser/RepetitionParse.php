@@ -22,7 +22,7 @@ class RepetitionParse extends AbstractCollectionParser
      * @param array  $options
      * @throws \Exception
      */
-    public function __construct($min, $max, $name=null, $options=null)
+    public function __construct($min = null, $max = null, $name=null, $options=null)
     {
         parent::__construct($name, $options);
         if($max < $min && $max > 0) {
