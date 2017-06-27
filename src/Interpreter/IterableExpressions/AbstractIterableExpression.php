@@ -34,6 +34,14 @@ class AbstractIterableExpression extends AbstractExpression{
     }
 
     /**
+     * @param AbstractExpression $expression
+     */
+    public function add(AbstractExpression $expression)
+    {
+        $this->container[] = $expression;
+    }
+
+    /**
      * @param InterpreterContext $context
      * @return null
      */
@@ -46,9 +54,9 @@ class AbstractIterableExpression extends AbstractExpression{
     }
 
     protected function doInterpret(InterpreterContext $context, array $value){
-        $return = [];
+        $return = '';
         foreach ($value as $item) {
-            $return[] = $context->lookup($item);
+            $return .= $context->lookup($item);
         }
 
         $context->replace($this, $return);

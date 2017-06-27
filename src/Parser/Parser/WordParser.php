@@ -49,4 +49,12 @@ class WordParser extends AbstractParser
     {
        return $this->trigger($scanner);
     }
+
+    /**
+     * @return null|string
+     */
+    public function getWord()
+    {
+        return $this->word;
+    }
 }

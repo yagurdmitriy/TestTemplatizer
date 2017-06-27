@@ -2,6 +2,9 @@
 
 namespace TestTemplatizer\Parser;
 
+use TestTemplatizer\Interpreter\AbstractExpression;
+use TestTemplatizer\Interpreter\IterableExpressions\ListExpression;
+
 /**
  * Class Context
  * @package TestTemplatizer\Parser
@@ -10,6 +13,14 @@ class Context
 {
     /** @var array  */
     public $resultStack = [];
+
+    /** @var  ListExpression */
+    public $list;
+
+    public function __construct()
+    {
+        $this->list = new ListExpression();
+    }
 
     /**
      * @param mixed $data
@@ -25,6 +36,21 @@ class Context
     public function popResult()
     {
         return array_pop($this->resultStack);
+    }
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function getExpression($name)
+    {
+        foreach ($this->resultStack as $item) {
+            if($item instanceof AbstractExpression) {
+                if ($item->getKey() == $name) {
+                    return $item;
+                }
+            }
+        }
     }
 
     /**

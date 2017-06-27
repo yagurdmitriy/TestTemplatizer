@@ -43,4 +43,12 @@ class SequenceParser extends AbstractCollectionParser
        }
        return true;
     }
+
+    /**
+     * @return bool
+     */
+    public function term()
+    {
+        return false;
+    }
 }

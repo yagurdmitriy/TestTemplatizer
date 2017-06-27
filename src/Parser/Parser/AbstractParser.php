@@ -2,6 +2,7 @@
 
 namespace TestTemplatizer\Parser\Parser;
 
+use TestTemplatizer\Parser\Handlers\HandlerInterface;
 use TestTemplatizer\Parser\Scanner\Scanner;
 
 /**
@@ -21,7 +22,7 @@ abstract class AbstractParser
     protected $name;
     /** @var int  */
     private static $count = 0;
-
+    /** @var  HandlerInterface */
     protected $handler;
 
     /**
@@ -72,7 +73,7 @@ abstract class AbstractParser
         self::$debug = $bool;
     }
 
-    public function setHandler(Handler $handler)
+    public function setHandler(HandlerInterface $handler)
     {
         $this->handler = $handler;
 
@@ -89,7 +90,7 @@ abstract class AbstractParser
         }
 
         $ret = $this->doScan($scanner);
-        if($ret && $this->discard && $this->term()) {
+        if($ret && !$this->discard && $this->term()) {
             $this->push($scanner);
         }
 
@@ -100,6 +101,7 @@ abstract class AbstractParser
         if($this->term() && $ret) {
             $this->next($scanner);
         }
+
         $this->report("::scan returning $ret");
 
         return $ret;
@@ -151,6 +153,8 @@ abstract class AbstractParser
     protected function push(Scanner $scanner)
     {
         $context = $scanner->getContext();
+
+        var_dump($scanner->token());
         $context->pushResult($scanner->token());
     }
 

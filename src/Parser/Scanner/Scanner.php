@@ -14,22 +14,28 @@ class Scanner
 
     const WORD = 1;
     const QUOTE = 2;
-    const APOS = 3;
+    const BRACE_OPEN = 3;
+    const BRACE_CLOSE = 4;
+    const APOS = 5;
     const WHITESPACE = 6;
-    const EOL = 8;
-    const CHAR = 9;
+    const EOL = 7;
+    const CHAR = 8;
+    const T_IF = 9;
     const EOF = 0;
     const SOF = -1;
 
     const MAP_TOKEN_TO_STING = [
         self::WORD => 'WORD',
         self::QUOTE => 'QUOTE',
+        self::BRACE_OPEN => 'BRACE_OPEN',
+        self::BRACE_CLOSE => 'BRACE_CLOSE',
         self::APOS => 'APOS',
         self::WHITESPACE => 'WHITESPACE',
         self::EOL => 'EOL',
         self::CHAR => 'CHAR',
         self::EOF => 'EOF',
         self::SOF => 'SOF',
+        self::T_IF => 'T_IF',
     ];
 
 
@@ -66,7 +72,7 @@ class Scanner
         if ($this->tokenType != self::WHITESPACE && $this->tokenType != self::EOL) {
             return $counter;
         }
-        while ($this->nextToken() != self::WHITESPACE && $this->tokenType != self::EOL) {
+        while ($this->nextToken() == self::WHITESPACE || $this->tokenType == self::EOL) {
             $counter++;
         }
 
@@ -123,6 +129,22 @@ class Scanner
     }
 
     /**
+     * @return bool
+     */
+    public function  isBraceOpen()
+    {
+        return $this->tokenType == self::BRACE_OPEN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function  isBraceClose()
+    {
+        return $this->tokenType == self::BRACE_CLOSE;
+    }
+
+    /**
      * @return mixed
      */
     public function lineNumber()
@@ -158,7 +180,13 @@ class Scanner
                 return $this->tokenType = $type;
             } else if ($this->isWordChar($char)) {
                 $this->token = $this->eatWordChars($char);
-                $type = self::WORD;
+
+//                if ($this->token == "if") {
+//                    var_dump($this->token);
+//                    $type = self::T_IF;
+//                } else {
+                    $type = self::WORD;
+//                }
             } else if ($this->isSpaceChar($char)) {
                 $this->token = $this->eatSpaceChars($char);
                 $type = self::WHITESPACE;
@@ -168,6 +196,12 @@ class Scanner
             } else if ($char == '"') {
                 $this->token = $char;
                 $type = self::QUOTE;
+            } else if ($char == '{') {
+                $this->token = $char;
+                $type = self::BRACE_OPEN;
+            } else if ($char == '}') {
+                $this->token = $char;
+                $type = self::BRACE_CLOSE;
             } else {
                 $this->token = $char;
                 $type = self::CHAR;
@@ -286,7 +320,7 @@ class Scanner
      */
     private function isEolChar($char)
     {
-        return preg_match('~\n|\r ~', $char) === 1;
+        return preg_match('~\n|\r~', $char) === 1;
     }
 
     /**

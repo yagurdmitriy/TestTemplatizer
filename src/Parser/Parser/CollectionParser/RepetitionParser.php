@@ -9,7 +9,7 @@ use TestTemplatizer\Parser\Scanner\Scanner;
  * Class RepetitionParse
  * @package TestTemplatizer\Parser\Parser\CollectionParser
  */
-class RepetitionParse extends AbstractCollectionParser
+class RepetitionParser extends AbstractCollectionParser
 {
     private $min;
     private $max;
@@ -22,7 +22,7 @@ class RepetitionParse extends AbstractCollectionParser
      * @param array  $options
      * @throws \Exception
      */
-    public function __construct($min = null, $max = null, $name=null, $options=null)
+    public function __construct($min = 0, $max = 0, $name=null, $options=null)
     {
         parent::__construct($name, $options);
         if($max < $min && $max > 0) {
@@ -61,7 +61,7 @@ class RepetitionParse extends AbstractCollectionParser
             }
 
             if(!$parser->trigger($scanner)) {
-                if($this->min ==0 || $count > $this->min) {
+                if($this->min == 0 || $count > $this->min) {
                     return true;
                 } else {
                     $scanner->setState($startState);

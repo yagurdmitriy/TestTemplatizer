@@ -8,7 +8,7 @@ use TestTemplatizer\Parser\Scanner\Scanner;
  * Class StringLiteralParse
  * @package TestTemplatizer\Parser\Parser\CollectionParser
  */
-class StringLiteralParse extends AbstractParser
+class StringLiteralParser extends AbstractParser
 {
     /**
      * @param Scanner $scanner

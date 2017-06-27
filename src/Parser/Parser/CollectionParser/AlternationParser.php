@@ -8,7 +8,7 @@ use TestTemplatizer\Parser\Scanner\Scanner;
  * Class AlternationParse
  * @package TestTemplatizer\Parser\Parser\CollectionParser
  */
-class AlternationParse extends AbstractCollectionParser
+class AlternationParser extends AbstractCollectionParser
 {
     /**
      * @param Scanner $scanner
@@ -36,6 +36,11 @@ class AlternationParse extends AbstractCollectionParser
         }
         $scanner->setState($startState);
 
+        return false;
+    }
+
+    public function term()
+    {
         return false;
     }
 }
