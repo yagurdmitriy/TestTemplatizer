@@ -70,6 +70,7 @@ class RepetitionParser extends AbstractCollectionParser
 
             if (!$parser->scan($scanner)) {
                 if($this->min ==0 || $count > $this->min) {
+//                    $scanner->setState($startState);
                     return true;
                 } else {
                     $scanner->setState($startState);

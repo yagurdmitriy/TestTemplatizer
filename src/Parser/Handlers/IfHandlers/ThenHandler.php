@@ -14,7 +14,7 @@ class ThenHandler extends AbstractIfHandler
 {
     public function handleMatch(AbstractParser $parser, Scanner $scanner)
     {
-        var_dump($scanner->getContext()->list);
+//        var_dump($scanner->getContext()->list);
         /** @var  $variable */
         $variable = $scanner->getContext()->getExpression($scanner->getContext()->popResult());
 

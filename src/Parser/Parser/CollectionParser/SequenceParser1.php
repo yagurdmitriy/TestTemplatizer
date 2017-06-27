@@ -9,7 +9,7 @@ use TestTemplatizer\Parser\Scanner\Scanner;
  * Class SequenceParser
  * @package TestTemplatizer\Parser\Parser\CollectionParser
  */
-class SequenceParser extends AbstractCollectionParser
+class SequenceParser1 extends AbstractCollectionParser
 {
     /**
      * @param Scanner $scanner
@@ -34,29 +34,26 @@ class SequenceParser extends AbstractCollectionParser
     protected function doScan(Scanner $scanner)
     {
        $startState = $scanner->getState();
-        var_dump('squence parser ->>>');
-        foreach ($this->parsers as $parser) {
-            var_dump($parser->name);
-        }
         foreach ($this->parsers as $parser) {
             /** @var AbstractParser $parser */
+                var_dump('squence parser ->>>');
                 $var = !($parser->trigger($scanner) && $scan = $parser->scan($scanner));
                 var_dump($parser->name);
+                var_dump('<<<- squence parser ');
             if($var){
                 var_dump('squence parser false');
                 $scanner->setState($startState);
                 return false;
             }
        }
-        var_dump('<<<- squence parser ');
        return true;
     }
 
     /**
      * @return bool
      */
-    public function term()
-    {
-        return false;
-    }
+//    public function term()
+//    {
+//        return false;
+//    }
 }

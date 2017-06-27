@@ -20,6 +20,8 @@ class HtmlParser extends AbstractParser
             || $scanner->tokenType() == Scanner::CHAR
             || $scanner->tokenType() == Scanner::EOL
             || $scanner->tokenType() == Scanner::WHITESPACE
+            || $scanner->tokenType() == Scanner::BRACE_OPEN
+            || $scanner->tokenType() == Scanner::BRACE_CLOSE
         ) {
             return true;
         }

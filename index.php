@@ -15,13 +15,8 @@ require_once "C:\\HOSTS\\test-task\\vendor\\autoload.php";
 //    <div>{my_var2}</div>
 //    <div>{my_var3}</div>
 //";
-
-$userIn = "
-{my_var1}
-    {if my_var4}
-    <div>dfgdsgsdgfsdfgsdf</div>
-    {/if}
-";
+//
+$userIn = "{if my_var4}<div>JKKK</div>{/if}";
 
 
 $engine = new \TestTemplatizer\Parser\MarkParser($userIn);
@@ -34,8 +29,8 @@ $result = $engine->evaluate([
 ]);
 
 echo $result;
-//
-//
+
+
 
 
 //$context = new \TestTemplatizer\Parser\Context();

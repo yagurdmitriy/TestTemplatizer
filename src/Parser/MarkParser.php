@@ -22,13 +22,12 @@ use TestTemplatizer\Parser\Handlers\IfVariableHandler;
 use TestTemplatizer\Parser\Handlers\StringLiteralHandler;
 use TestTemplatizer\Parser\Handlers\VariableHandler;
 use TestTemplatizer\Parser\Parser\AbstractParser;
-use TestTemplatizer\Parser\Parser\BraceCloseParser;
-use TestTemplatizer\Parser\Parser\BraceOpenParser;
 use TestTemplatizer\Parser\Parser\CharacterParser;
 use TestTemplatizer\Parser\Parser\CollectionParser\AlternationParser;
 use TestTemplatizer\Parser\Parser\CollectionParser\RepetitionParse;
 use TestTemplatizer\Parser\Parser\CollectionParser\RepetitionParser;
 use TestTemplatizer\Parser\Parser\CollectionParser\SequenceParser;
+use TestTemplatizer\Parser\Parser\CollectionParser\SequenceParser1;
 use TestTemplatizer\Parser\Parser\CollectionParser\ThenParser;
 use TestTemplatizer\Parser\Parser\HtmlParser;
 use TestTemplatizer\Parser\Parser\IfParser;
@@ -86,13 +85,12 @@ class MarkParser
     {
         if(!isset($this->expression)) {
 
-            $this->expression = new RepetitionParser(0, 1000000);
+            $this->expression = new RepetitionParser(0, 10000);
 
             $alternate = new AlternationParser();
-            $alternate->add(new HtmlParser())->setHandler(new HtmlHandler());
-            $alternate->add($this->variable());
             $alternate->add($this->ifExpr());
-
+//            $alternate->add($this->variable());
+            $alternate->add(new HtmlParser())->setHandler(new HtmlHandler());
             $this->expression->add($alternate);
 
 
@@ -111,36 +109,9 @@ class MarkParser
 
     public function ifExpr()
     {
-        $ifExpr = new SequenceParser();
+        $ifExpr = new IfParser();
 
-        $ifExprCond = new SequenceParser();
-        $ifExprCond->add(new WordParser('{'))->discard();
-        $ifExprCond->add(new WordParser('if'))->discard();
-        $ifExprCond->add(new WordParser());
-        $ifExprCond->add(new WordParser('}'))->discard();
-        $ifExprCond->setHandler(new IfVariableHandler());
-        $ifExpr->add($ifExprCond);
-
-        $ggg = new SequenceParser();
-        $ggg->add($this->expression());
-        $ggg->setHandler(new ThenHandler());
-        $ifExpr->add($ggg);
-
-//        $rep = new RepetitionParser(0, 1000000);
-//        $elseExpr = new SequenceParser();
-//        $elseExpr->add(new CharacterParser('{'))->discard();
-//        $elseExpr->add(new WordParser('else'))->discard();
-//        $elseExpr->add(new CharacterParser('}'))->discard();
-//        $elseExpr->add($this->expression())->setHandler(new ElseHandler());
-//        $rep->add($elseExpr);
-
-        $closeIfExpr = new SequenceParser();
-        $closeIfExpr->add(new CharacterParser('{'))->discard();
-        $closeIfExpr->add(new CharacterParser('/'))->discard();
-        $closeIfExpr->add(new WordParser('if'))->discard();
-        $closeIfExpr->add(new CharacterParser('}'))->discard();
-
-        $ifExpr->add($closeIfExpr);
+        $ifExpr->setThenParser($this->expression());
 
 
         return $ifExpr;
