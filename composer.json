@@ -1,0 +1,20 @@
+{
+
+  "name": "d.yagur/test_templatizer",
+  "description": "Test work",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Yagur Dmitriy",
+      "email": "yagurdmitriy@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "TestTemplatizer\\": "src"
+    }
+  }
+}
