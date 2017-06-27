@@ -1,13 +1,12 @@
 <?php
 
 namespace TestTemplatizer\Parser\Parser\CollectionParser;
+
 use TestTemplatizer\Parser\Parser\AbstractParser;
 
 /**
- * Created by PhpStorm.
- * User: dmitriy
- * Date: 26.06.2017
- * Time: 2:02
+ * Class AbstractCollectionParser
+ * @package TestTemplatizer\Parser\Parser\CollectionParser
  */
 abstract class AbstractCollectionParser extends AbstractParser
 {
@@ -24,7 +23,6 @@ abstract class AbstractCollectionParser extends AbstractParser
         if (is_null($parser)) {
             throw new \Exception('argument is null');
         }
-
         $this->parsers[] =  $parser;
 
         return $parser;

@@ -8,7 +8,10 @@ namespace TestTemplatizer\Parser\Reader;
  */
 abstract class AbstractReader
 {
+    /** @return  string */
     abstract function getChar();
+    /** @return int */
     abstract function getPosition();
+    /** @return null */
     abstract function pushBackChar();
 }

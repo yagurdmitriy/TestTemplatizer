@@ -11,27 +11,15 @@ use TestTemplatizer\Parser\Scanner\Scanner;
 class HtmlParser extends AbstractParser
 {
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     public function trigger(Scanner $scanner)
     {
-        if($scanner->tokenType() == Scanner::WORD
-            || $scanner->tokenType() == Scanner::CHAR
-            || $scanner->tokenType() == Scanner::EOL
-            || $scanner->tokenType() == Scanner::WHITESPACE
-            || $scanner->tokenType() == Scanner::BRACE_OPEN
-            || $scanner->tokenType() == Scanner::BRACE_CLOSE
-        ) {
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     protected function doScan(Scanner $scanner)
     {

@@ -11,8 +11,7 @@ use TestTemplatizer\Parser\Scanner\Scanner;
 class AlternationParser extends AbstractCollectionParser
 {
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     public function trigger(Scanner $scanner)
     {
@@ -25,6 +24,9 @@ class AlternationParser extends AbstractCollectionParser
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function doScan(Scanner $scanner)
     {
         $type = $scanner->tokenType();
@@ -39,6 +41,9 @@ class AlternationParser extends AbstractCollectionParser
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function term()
     {
         return false;

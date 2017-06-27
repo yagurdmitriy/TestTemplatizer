@@ -20,7 +20,7 @@ abstract class AbstractExpression
     abstract public function interpret(InterpreterContext $context);
 
     /**
-     * @return int
+     * @return int|string
      */
     public function getKey()
     {

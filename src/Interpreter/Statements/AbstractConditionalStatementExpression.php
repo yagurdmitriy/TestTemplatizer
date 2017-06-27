@@ -53,6 +53,4 @@ class AbstractConditionalStatementExpression extends AbstractExpression
     protected function doInterpret(InterpreterContext $context, $conditionExpression, $thenExpression, $elseExpression){
         $context->replace($this, $conditionExpression ? $thenExpression : $elseExpression);
     }
-
-
 }

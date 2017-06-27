@@ -89,18 +89,7 @@ abstract class AbstractParser
             $scanner->nextToken();
         }
 
-        echo '++++++++++++++++++++++++++++++';
-        var_dump(get_class($this));
-        var_dump($this->name);
-        var_dump($scanner->charNumber());
-        var_dump($scanner->token());
-
         $ret = $this->doScan($scanner);
-
-        var_dump($this->name);
-        var_dump($ret);
-        var_dump($this->discard);
-        var_dump($ret && !$this->discard && $this->term());
         if($ret && !$this->discard && $this->term()) {
             $this->push($scanner);
         }
@@ -108,15 +97,10 @@ abstract class AbstractParser
         if($ret) {
             $this->invokeHandler($scanner);
         }
-        var_dump($this->term() && $ret);
+
         if($this->term() && $ret) {
             $this->next($scanner);
         }
-        var_dump($scanner->charNumber());
-        var_dump($scanner->token());
-        var_dump($scanner->tokenType());
-//        var_dump($this);
-
         $this->report("::scan returning $ret");
 
         return $ret;
@@ -144,6 +128,10 @@ abstract class AbstractParser
         return true;
     }
 
+    /**
+     * @param Scanner $scanner
+     * @return null
+     */
     protected function invokeHandler(Scanner $scanner)
     {
         if(!empty($this->handler)) {
@@ -173,7 +161,7 @@ abstract class AbstractParser
 
     /**
      * @param Scanner $scanner
-     * @return mixed
+     * @return bool
      */
     abstract protected function doScan(Scanner $scanner);
 }

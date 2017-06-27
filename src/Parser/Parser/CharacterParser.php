@@ -25,8 +25,7 @@ class CharacterParser extends AbstractParser
     }
 
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     public function trigger(Scanner $scanner)
     {
@@ -34,8 +33,7 @@ class CharacterParser extends AbstractParser
     }
 
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     protected function doScan(Scanner $scanner)
     {

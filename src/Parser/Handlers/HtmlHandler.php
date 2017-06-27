@@ -17,9 +17,7 @@ class HtmlHandler implements HandlerInterface
      */
     public function handleMatch(AbstractParser $parser, Scanner $scanner)
     {
-        $value = $scanner->getContext()->popResult();
-        $expr = new LiteralExpression($value);
-//        $scanner->getContext()->pushResult($expr);
+        $expr = new LiteralExpression($scanner->getContext()->popResult());
         $scanner->getContext()->list->add($expr);
     }
 }

@@ -13,29 +13,23 @@ class Scanner
 {
 
     const WORD = 1;
-    const QUOTE = 2;
     const BRACE_OPEN = 3;
     const BRACE_CLOSE = 4;
-    const APOS = 5;
     const WHITESPACE = 6;
     const EOL = 7;
     const CHAR = 8;
-    const T_IF = 9;
     const EOF = 0;
     const SOF = -1;
 
     const MAP_TOKEN_TO_STING = [
         self::WORD => 'WORD',
-        self::QUOTE => 'QUOTE',
         self::BRACE_OPEN => 'BRACE_OPEN',
         self::BRACE_CLOSE => 'BRACE_CLOSE',
-        self::APOS => 'APOS',
         self::WHITESPACE => 'WHITESPACE',
         self::EOL => 'EOL',
         self::CHAR => 'CHAR',
         self::EOF => 'EOF',
         self::SOF => 'SOF',
-        self::T_IF => 'T_IF',
     ];
 
 
@@ -123,14 +117,6 @@ class Scanner
     /**
      * @return bool
      */
-    public function isQuote()
-    {
-        return $this->tokenType == self::APOS || $this->tokenType == self::QUOTE;
-    }
-
-    /**
-     * @return bool
-     */
     public function  isBraceOpen()
     {
         return $this->tokenType == self::BRACE_OPEN;
@@ -162,7 +148,7 @@ class Scanner
 
     public function __clone()
     {
-        $this->reader = clone ($this->reader);
+        $this->reader = clone($this->reader);
     }
 
     /**
@@ -180,22 +166,10 @@ class Scanner
                 return $this->tokenType = $type;
             } else if ($this->isWordChar($char)) {
                 $this->token = $this->eatWordChars($char);
-
-//                if ($this->token == "if") {
-//                    var_dump($this->token);
-//                    $type = self::T_IF;
-//                } else {
-                    $type = self::WORD;
-//                }
+                $type = self::WORD;
             } else if ($this->isSpaceChar($char)) {
                 $this->token = $this->eatSpaceChars($char);
                 $type = self::WHITESPACE;
-            } else if ($char == "'") {
-                $this->token = $char;
-                $type = self::APOS;
-            } else if ($char == '"') {
-                $this->token = $char;
-                $type = self::QUOTE;
             } else if ($char == '{') {
                 $this->token = $char;
                 $type = self::BRACE_OPEN;
@@ -212,20 +186,6 @@ class Scanner
         }
         return $this->tokenType = self::EOF;
     }
-
-    /**
-     * @return array
-     */
-    public function peekToken()
-    {
-        $state = $this->getState();
-        $type = $this->nextToken();
-        $token = $this->token();
-        $this->setState($state);
-
-        return [$type, $token];
-    }
-
 
     /**
      * @return ScannerState
@@ -257,13 +217,18 @@ class Scanner
         $this->context = $state->context;
     }
 
-
+    /**
+     * @return mixed
+     */
     private function getChar()
     {
         return $this->reader->getChar();
     }
 
-
+    /**
+     * @param string $char
+     * @return string
+     */
     private function eatWordChars($char)
     {
         $value = $char;
@@ -277,6 +242,10 @@ class Scanner
         return $value;
     }
 
+    /**
+     * @param string $char
+     * @return string
+     */
     private function eatSpaceChars($char)
     {
         $value = $char;
@@ -341,6 +310,9 @@ class Scanner
         return $char;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPosition()
     {
         return $this->reader->getPosition();

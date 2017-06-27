@@ -21,7 +21,6 @@ class AbstractIterableExpression extends AbstractExpression{
      */
     public function __construct($array = [])
     {
-//        var_dump($array);
         foreach ($array as $item) {
             if($item instanceOf AbstractExpression) {
                 $this->container[] = $item;

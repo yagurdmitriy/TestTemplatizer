@@ -11,7 +11,9 @@ use TestTemplatizer\Parser\Scanner\Scanner;
  */
 class RepetitionParser extends AbstractCollectionParser
 {
+    /** @var int */
     private $min;
+    /** @var int  */
     private $max;
 
     /**
@@ -22,7 +24,7 @@ class RepetitionParser extends AbstractCollectionParser
      * @param array  $options
      * @throws \Exception
      */
-    public function __construct($min = 0, $max = 0, $name=null, $options=null)
+    public function __construct($min = 0, $max = 999999, $name = null, $options = null)
     {
         parent::__construct($name, $options);
         if($max < $min && $max > 0) {
@@ -33,8 +35,7 @@ class RepetitionParser extends AbstractCollectionParser
     }
 
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     public function trigger(Scanner $scanner)
     {
@@ -42,8 +43,7 @@ class RepetitionParser extends AbstractCollectionParser
     }
 
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     protected function doScan(Scanner $scanner)
     {
@@ -70,7 +70,6 @@ class RepetitionParser extends AbstractCollectionParser
 
             if (!$parser->scan($scanner)) {
                 if($this->min ==0 || $count > $this->min) {
-//                    $scanner->setState($startState);
                     return true;
                 } else {
                     $scanner->setState($startState);

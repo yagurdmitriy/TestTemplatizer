@@ -10,6 +10,7 @@ use TestTemplatizer\Parser\Scanner\Scanner;
  */
 class WordParser extends AbstractParser
 {
+    /** @var null|string  */
     protected $word;
 
     /**
@@ -25,8 +26,8 @@ class WordParser extends AbstractParser
     }
 
     /**
-     * @param Scanner $scanner
-     * @return bool
+    /**
+     * {@inheritDoc}
      */
     public function trigger(Scanner $scanner)
     {
@@ -42,8 +43,7 @@ class WordParser extends AbstractParser
     }
 
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     protected function doScan(Scanner $scanner)
     {

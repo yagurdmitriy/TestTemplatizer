@@ -14,7 +14,7 @@ class Context
     /** @var array  */
     public $resultStack = [];
 
-    /** @var  ListExpression */
+    /** @var ListExpression */
     public $list;
 
     public function __construct()
@@ -36,21 +36,6 @@ class Context
     public function popResult()
     {
         return array_pop($this->resultStack);
-    }
-
-    /**
-     * @param string $name
-     * @return mixed
-     */
-    public function getExpression($name)
-    {
-        foreach ($this->resultStack as $item) {
-            if($item instanceof AbstractExpression) {
-                if ($item->getKey() == $name) {
-                    return $item;
-                }
-            }
-        }
     }
 
     /**

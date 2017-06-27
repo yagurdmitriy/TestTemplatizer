@@ -12,8 +12,7 @@ use TestTemplatizer\Parser\Scanner\Scanner;
 class SequenceParser extends AbstractCollectionParser
 {
     /**
-     * @param Scanner $scanner
-     * @return bool|mixed
+     * {@inheritDoc}
      */
     public function trigger(Scanner $scanner)
     {
@@ -28,32 +27,24 @@ class SequenceParser extends AbstractCollectionParser
     }
 
     /**
-     * @param Scanner $scanner
-     * @return bool
+     * {@inheritDoc}
      */
     protected function doScan(Scanner $scanner)
     {
        $startState = $scanner->getState();
-        var_dump('squence parser ->>>');
-        foreach ($this->parsers as $parser) {
-            var_dump($parser->name);
-        }
         foreach ($this->parsers as $parser) {
             /** @var AbstractParser $parser */
-                $var = !($parser->trigger($scanner) && $scan = $parser->scan($scanner));
-                var_dump($parser->name);
-            if($var){
-                var_dump('squence parser false');
+            if(!($parser->trigger($scanner) && $scan = $parser->scan($scanner))){
                 $scanner->setState($startState);
+
                 return false;
             }
        }
-        var_dump('<<<- squence parser ');
        return true;
     }
 
     /**
-     * @return bool
+     * {@inheritDoc}
      */
     public function term()
     {

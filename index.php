@@ -2,21 +2,17 @@
 require_once "C:\\HOSTS\\test-task\\vendor\\autoload.php";
 
 
-//$userIn = "
-//    <div>{my_var}</div>
-//
-//
-//    {if my_var4}
-//    <div>dfgdsgsdgfsdfgsdf</div>
-//    {/if}
-//
-//
-//    <div>{my_var1}</div>
-//    <div>{my_var2}</div>
-//    <div>{my_var3}</div>
-//";
-//
-$userIn = "{if my_var4}<div>JKKK</div>{/if}";
+$userIn = "
+    <div>{my_var}</div>
+
+    <div>dfgdsgsdgfsdfgsdf</div>
+
+
+    <div>{my_var1}</div>
+    <div>{my_var2}</div>
+    <div>{my_var3}</div>
+";
+
 
 
 $engine = new \TestTemplatizer\Parser\MarkParser($userIn);

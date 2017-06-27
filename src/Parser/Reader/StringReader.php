@@ -7,7 +7,7 @@ class StringReader extends AbstractReader
 {
     /** @var string  */
     private $container;
-    /** @var  int */
+    /** @var int */
     private $position;
 
     /**
@@ -20,6 +20,9 @@ class StringReader extends AbstractReader
         $this->position = 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     function getChar()
     {
        if($this->position >= strlen($this->container)) {
@@ -33,13 +36,16 @@ class StringReader extends AbstractReader
     }
 
     /**
-     * @return int
+     * {@inheritDoc}
      */
     public function getPosition()
     {
         return $this->position;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function pushBackChar()
     {
         $this->position--;

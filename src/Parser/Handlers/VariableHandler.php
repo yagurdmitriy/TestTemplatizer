@@ -14,11 +14,7 @@ class VariableHandler implements HandlerInterface
      */
     public function handleMatch(AbstractParser $parser, Scanner $scanner)
     {
-        $varName = $scanner->getContext()->popResult();
-        $expr = new VariableExpression($varName);
-//        $scanner->getContext()->pushResult($expr);
+        $expr = new VariableExpression($scanner->getContext()->popResult());
         $scanner->getContext()->list->add($expr);
-
-        return $varName;
     }
 }
